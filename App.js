@@ -1,20 +1,62 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './Screens/HomeScreen';
+import AggiungiVotiScreen from './Screens/AggiungiVoti';
+import DettagliMateriaScreen from './Screens/DettagliMateria';
+import WelcomeScreen from './Screens/WelcomePage'
+import { Ionicons } from '@expo/vector-icons';
 
-export default function App() {
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const DarkTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#121212',
+    text: '#ffffff',
+    card: '#1F1F1F',
+    border: '#333',
+  },
+};
+
+function HomeStack() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="DettagliMateria" component={DettagliMateriaScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <NavigationContainer theme={DarkTheme}>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarStyle: {
+            backgroundColor: '#121212',
+            borderTopColor: '#333',
+          },
+          tabBarActiveTintColor: '#76FF03',
+          tabBarInactiveTintColor: '#888',
+          tabBarIcon: ({ color, size }) => {
+            let iconName;
+            if (route.name === 'Home') {
+              iconName = 'home';
+            } else if (route.name === 'Aggiungi Voti') {
+              iconName = 'add-circle';
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
+      >
+        <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }} />
+        <Tab.Screen name="Aggiungi Voti" component={AggiungiVotiScreen} options={{ headerShown: false }} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
