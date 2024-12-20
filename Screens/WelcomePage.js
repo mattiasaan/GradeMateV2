@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity, ActivityInd
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WelcomeScreen = ({ navigation }) => {
-  /*
   const [isFirstLaunch, setIsFirstLaunch] = useState(null);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -88,9 +87,9 @@ const WelcomeScreen = ({ navigation }) => {
         <Text style={style.buttonText}>Accedi</Text>
       </TouchableOpacity>
     </View>
-  );*/
+  );
 };
-/*
+
 const style = StyleSheet.create({
   container: {
     flex: 1,
@@ -135,5 +134,5 @@ const style = StyleSheet.create({
     fontSize: 16,
   },
 });
-*/
+
 export default WelcomeScreen;
